@@ -15,10 +15,10 @@ cleanAll: clean
 	-@rm $(PDF_FILES) 2>/dev/null
 	-@rm ./main.pdf 2>/dev/null
 
-#introduction.pdf: ./chapters/introduction/introduction.tex
-#	(cd ./chapters/introduction && pdflatex introduction.tex && mv introduction.pdf ../..)
-#	#open $@
-#introduction: introduction.pdf
+introduction.pdf: ./chapters/introduction/introduction.tex
+	(cd ./chapters/introduction && pdflatex introduction.tex && mv introduction.pdf ../..)
+	#open $@
+introduction: introduction.pdf
 #
 #calculus.pdf: ./chapters/calculus/calculus.tex 
 #	(cd ./chapters/calculus && pdflatex calculus.tex && mv calculus.pdf ../..)
@@ -40,7 +40,7 @@ cleanAll: clean
 #	#open $@
 #linear_algebra: linear_algebra.pdf
 
-normal_distributions.pdf: ./chapters/normal_distributions/normal_distributions.tex 
+normal_distribution.pdf: ./chapters/normal_distribution/normal_distribution.tex 
 	(cd ./chapters/normal_distribution && pdflatex normal_distribution.tex && mv normal_distribution.pdf ../..)
 	#open $@
 normal_distributions: normal_distributions.pdf
@@ -53,4 +53,4 @@ test:
 	echo $(LOG_FILES)
 
 all : main.pdf
-	#open main.pdf
+	open main.pdf
