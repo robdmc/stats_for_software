@@ -8,12 +8,12 @@ TEX_FILES:=$(wildcard *.tex) $(wildcard ./chapters/*/*.tex)
 PDF_FILES:=$(wildcard ./chapters/*/*.pdf)
 
 clean:
-	-@rm $(LOG_FILES) 2>/dev/null
-	-@rm $(AUX_FILES) 2>/dev/null
+	-@rm $(LOG_FILES) 2>/dev/null | true
+	-@rm $(AUX_FILES) 2>/dev/null | true
 
 cleanAll: clean
-	-@rm $(PDF_FILES) 2>/dev/null
-	-@rm ./main.pdf 2>/dev/null
+	-@rm $(PDF_FILES) 2>/dev/null | true
+	-@rm ./main.pdf 2>/dev/null | true
 
 introduction.pdf: ./chapters/introduction/introduction.tex
 	(cd ./chapters/introduction && pdflatex introduction.tex && mv introduction.pdf ../..)
@@ -43,9 +43,11 @@ introduction: introduction.pdf
 normal_distribution.pdf: ./chapters/normal_distribution/normal_distribution.tex 
 	(cd ./chapters/normal_distribution && pdflatex normal_distribution.tex && mv normal_distribution.pdf ../..)
 	#open $@
-normal_distributions: normal_distributions.pdf
+normal_distribution: normal_distribution.pdf
 
 main.pdf : main.tex $(TEX_FILES)
+	# call latex twice to make references.  (may need more iterations later)
+	pdflatex main.tex
 	pdflatex main.tex
 
 test:
