@@ -2,33 +2,104 @@
 
 \begin{document}
 
-\chapter{Univariate Normal}
-The probability density function is
-
-
-
-
-
-\section{The First thing}
-This is the first thing
-
-
-\subsection{Random Equation examples for tex}
-
+\chapter{Normal Distributions}
+\section{Density Functions}
+The univariate probability density function is
 \begin{equation}
-    \label{eq:1}
-    f = ma
+    \label{eq:uninormaldens}
+    f\left(x| \mu, \sigma \right) =
+    \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+\end{equation}
+The univariate cumulative density function is
+\begin{equation}
+    \label{eq:uninormalcum}
+    F\left(x| \mu, \sigma \right) =
+    \frac{1}{2}\left[ 1 + erf\left(\frac{x - \mu}{\sigma \sqrt{2}}  \right) \right]
+\end{equation}
+The multivariate probability density function is
+\begin{align}
+    \label{eq:multinormaldens}
+    f\left(\boldsymbol{x}| \boldsymbol{\mu}, \boldsymbol{\Sigma} \right)
+    &= \frac{1}{
+            |\boldsymbol{\Sigma}|^\frac{1}{2} (2\pi)^{\left(\frac{k}{2}\right)}
+        }
+        e^{
+            -\frac{1}{2}
+            (\boldsymbol{x} - \boldsymbol{\mu})^T
+            \boldsymbol{\Sigma^{-1}}
+            (\boldsymbol{x} - \boldsymbol{\mu})
+    }\\
+    &= \frac{|\boldsymbol{\Lambda}|^\frac{1}{2}}{
+             (2\pi)^{\left(\frac{k}{2}\right)}
+        }
+        e^{
+            -\frac{1}{2}
+            (\boldsymbol{x} - \boldsymbol{\mu})^T
+            \boldsymbol{\Lambda}
+            (\boldsymbol{x} - \boldsymbol{\mu})
+    }\nonumber
+\end{align}
+Where $\boldsymbol{\Lambda} = \boldsymbol{\Sigma^{-1}}$ is the precision
+matrix, and $k$ is the dimensionality of the vector space.
+
+
+\section{Adding Distributions}
+The sum of $N$ normally distributed random variables is also normally
+distributed with parameters
+\begin{equation}
+    \label{eq:sum_normal_mu_var}
+    \boldsymbol\mu = \sum\limits_{i=1}^{N}\boldsymbol\mu_i
+    \qquad\text{and}\qquad
+    \boldsymbol\Sigma = \sum\limits_{i=1}^{N}\boldsymbol\Sigma_i
 \end{equation}
 
+\section{Multiplying Distributions}
+The product of $N$ normal distributions is also a normal distribution with
+parameters
+\begin{equation}
+    \label{eq:sum_normal_mu_var}
+    \boldsymbol\Lambda = \sum\limits_{i=1}^{N}\boldsymbol\Lambda_i
+    %\boldsymbol\mu = \frac{
+    %    \sum\limits_{i=1}^{N}\boldsymbol{\Lambda_i\mu_i}
+    %}{
+    %    \sum\limits_{i=1}^{N}\boldsymbol{\Lambda_i}
+    %}
+    \qquad\text{and}\qquad
+    \boldsymbol\mu = \boldsymbol\Lambda^{-1}\sum\limits_{i=1}^{N}\boldsymbol{\Lambda_i\mu_i}
+\end{equation}
+Where $\boldsymbol{\Lambda} = \boldsymbol{\Sigma^{-1}}$ is the precision
+matrix.
+
+
+\section{Incrementally Incorporating Data Into Distribution}
+This section builds on a white paper by Raul Rojas entitled ``The Kalman
+Filter.''  We'll start by considering the univariate normal distrubtion
+and then generalize to the multivariate case. 
+
+Assume you start with some initial values for $\mu_0$ and $\sigma_0$.  The
+following recursive update equations can be used to incrementally update these
+initial values to reflect all the values observed thus far.
+
 \begin{align}
-    \label{eq:2}
-    f &= ma\\
-      &= m\ddot{r}\nonumber\\
-      &= m\frac{d^2r}{dt^2}\nonumber
+    \label{eq:normal_update_1d}
+    \mu_{n+1} &= \frac{n}{n + 1} \mu_n  + \frac{1}{n+1}x_{n+1} \\
+    \sigma_{n+1}^2 &= \frac{n}{n + 1}\sigma_n^2
+        + \frac{n}{(n+1)^2} \left( x_{n+1} - \mu_n \right) ^ 2\nonumber
 \end{align}
 
-\eqref{eq:1} is a simple equation while \eqref{eq:2} is a
-more complex equation. 
+The equations in \eqref{eq:normal_update_1d} can be generalized the the
+multivariate case.  Evaluating the following equations in order will result in
+the mean and covariance being updated.
 
+\begin{align}
+    \label{eq:normal_update_multi}
+    K &\equiv \frac{1}{n + 1}\\
+    \boldsymbol{\mu_{n+1}} &= \boldsymbol{\mu_{n}} +
+                              K \left(
+                                  \boldsymbol{x_{n+1}} - \boldsymbol{\mu_{n}}
+                              \right) \nonumber\\
+    %\boldsymbol{{\Sigma'}_{n}} &= \boldsymbol{\Sigma_{n}}
+    {\boldsymbol{\Sigma}'}_{n} &= \boldsymbol{\Sigma}_{n}
+\end{align}
  
 \end{document}
