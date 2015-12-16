@@ -94,12 +94,15 @@ the mean and covariance being updated.
 \begin{align}
     \label{eq:normal_update_multi}
     K &\equiv \frac{1}{n + 1}\\
-    \boldsymbol{\mu_{n+1}} &= \boldsymbol{\mu_{n}} +
+    \boldsymbol{\mu}_{n+1} &= \boldsymbol{\mu}_{n} +
                               K \left(
-                                  \boldsymbol{x_{n+1}} - \boldsymbol{\mu_{n}}
+                                  \boldsymbol{x}_{n+1} - \boldsymbol{\mu}_{n}
                               \right) \nonumber\\
     %\boldsymbol{{\Sigma'}_{n}} &= \boldsymbol{\Sigma_{n}}
     {\boldsymbol{\Sigma}'}_{n} &= \boldsymbol{\Sigma}_{n}
+                              + \left( x_{n+1} - \mu_n  \right)
 \end{align}
+
+
  
 \end{document}
