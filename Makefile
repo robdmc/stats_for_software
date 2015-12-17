@@ -40,10 +40,19 @@ introduction: introduction.pdf
 #	#open $@
 #linear_algebra: linear_algebra.pdf
 
+
 normal_distribution.pdf: ./chapters/normal_distribution/normal_distribution.tex 
 	(cd ./chapters/normal_distribution && pdflatex normal_distribution.tex && mv normal_distribution.pdf ../..)
 	#open $@
 normal_distribution: normal_distribution.pdf
+
+beta_distribution.pdf: ./chapters/beta_distribution/beta_distribution.tex 
+	(cd ./chapters/beta_distribution && pdflatex beta_distribution.tex && mv beta_distribution.pdf ../..)
+	#open $@
+beta_distribution: beta_distribution.pdf
+
+
+
 
 main.pdf : main.tex $(TEX_FILES)
 	# call latex twice to make references.  (may need more iterations later)

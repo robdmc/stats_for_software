@@ -1,0 +1,47 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Beta Distributions}
+
+%=============================================================================
+\section{Density Functions}
+The probability density function is
+\[
+    f\left(x| \alpha, \beta \right) =
+    \frac{
+        x^{\alpha-1} (1 - x)^{\beta-1}
+    }
+    {
+        \mathcal{B}(\alpha, \beta)
+    }
+\]
+where the beta function, $\mathcal{B}(\alpha, \beta)$ serves as the
+normalizer.
+
+The mean and variance are given by
+\begin{align}
+    \mu &= \frac{\alpha }{ \alpha + \beta} \\
+    \sigma^2 &= \frac{\alpha \beta}{ (\alpha + \beta)^2 (\alpha + \beta + 1)} 
+\end{align}
+
+These can be inverted to get the $\alpha$ and $\beta$ parameters as a function
+of the mean and standard deviations.  Note that this is not completely
+reversible in that it is possible to specify mean and standard deviation
+values that cannot be realized by the beta distribution.
+\begin{align}
+    \alpha &= \left( \frac{1-\mu}{\sigma^2} - \frac{1}{\mu} \right) \\
+    \beta &= \left( \frac{1}{\mu}  - 1 \right)
+\end{align}
+
+
+%=============================================================================
+\section{MOVE THIS TO GAMMA CHAPTER Density Functions}
+The probability density function is
+\begin{equation}
+    f\left(x| k, \theta \right) =
+    \frac{1}{\Gamma(k)\theta^{k - 1}}e^{-x / \theta}
+\end{equation}
+
+
+\end{document}
