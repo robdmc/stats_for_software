@@ -211,5 +211,27 @@ This means that equation \eqref{eq:amortize_results} can also be expressed as
     x_n = e^{-n/n_d}
           \left( x_0 - \frac{B}{1 - A} \right) + \frac{B}{1 - A}
 \end{equation}
+
+\subsection{Applying Amortization Results to ``Forgetting Problem''}
+So let's pick up where we left of with the problem of incrementally updating a
+normal distribution while ``forgetting'' old observations.  We had a recursive
+update equation for the mean value given by
+\begin{equation}
+    \mu_{n+1} = A \mu_n + B. \nonumber
+\end{equation}
+where
+\begin{align}
+    A &= 1 - K_{max} \nonumber\\
+    B &= x_f k_{max} \nonumber\\
+    k_{max} &= \frac{1}{1+n_{max}}
+\end{align}
+I won't go through all the steps here, but applying the amortization results
+to these equations will give you the following result.
+
+\begin{equation}
+    \label{eq:exp_solution}
+    \mu_n = e^{-ln \left( \frac{n_{max} + 1}{n_{max}}  \right) n}
+          \left( x_0 - x_f \right) + x_f
+\end{equation}
  
 \end{document}
