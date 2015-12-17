@@ -3,6 +3,8 @@
 \begin{document}
 
 \chapter{Normal Distributions}
+
+%=============================================================================
 \section{Density Functions}
 The univariate probability density function is
 \begin{equation}
@@ -45,6 +47,7 @@ Where $\B{\Lambda} = \B{\Sigma^{-1}}$ is the precision
 matrix, and $k$ is the dimensionality of the vector space.
 
 
+%=============================================================================
 \section{Adding Distributions}
 The sum of $N$ normally distributed random variables is also normally
 distributed with parameters
@@ -55,6 +58,7 @@ distributed with parameters
     \B{\Sigma} = \sum\limits_{i=1}^{N}\B{\Sigma_i}
 \end{equation}
 
+%=============================================================================
 \section{Multiplying Distributions}
 The product of $N$ normal distributions is also a normal distribution with
 parameters
@@ -73,6 +77,7 @@ Where $\B{\Lambda} = \B{\Sigma^{-1}}$ is the precision
 matrix.
 
 
+%=============================================================================
 \section{Incrementally Incorporating Data Into Distribution}
 This section builds on a white paper by Raul Rojas entitled ``The Kalman
 Filter.''  We'll start by considering the univariate normal distrubtion
@@ -117,6 +122,7 @@ $\B{\Sigma}_{n+1}$.
     {\B{\Sigma}}_{n+1} &= (1 - K) {\B{\Sigma}'}_{n}\nonumber
 \end{align}
 
+%=============================================================================
 \section{Incremental Updates with ``Forgetting''}
 In this section, I describe one way of incrementally incorporating data into a
 normal distribution while discounting older data.  This is very similar to what
@@ -155,6 +161,7 @@ are into your mortage, $\mu_n$ represents the outstanding balance on your
 mortage, $A$ represents your monthly interest rate, and $B$ represents your
 monthly payment (with a negative sign). 
 
+%-----------------------------------------------------------------------------
 \subsection{Exploring the Amortization Update Equation}
 The amortization equation can apply to any system.  Above we will apply it to
 the evolution of mean values, but it could apply to anything.  We therefore
@@ -201,7 +208,7 @@ in terms of their expontential ``decay constant'' which with will label as
 $n_d$ and compute with the following steps.
 \begin{align}
     \label{eq:decay}
-    A^n &= e^\frac{-n}{n_d} \nonumber\\
+    A^n &= e^{-n / n_d} \nonumber\\
     ln(A) &= -\frac{1}{n_d} \nonumber\\
     n_d &= -\frac{1}{ln(A)}
 \end{align}
@@ -212,6 +219,7 @@ This means that equation \eqref{eq:amortize_results} can also be expressed as
           \left( x_0 - \frac{B}{1 - A} \right) + \frac{B}{1 - A}
 \end{equation}
 
+%-----------------------------------------------------------------------------
 \subsection{Applying Amortization Results to ``Forgetting Problem''}
 So let's pick up where we left of with the problem of incrementally updating a
 normal distribution while ``forgetting'' old observations.  We had a recursive
@@ -233,5 +241,16 @@ to these equations will give you the following result.
     \mu_n = e^{-ln \left( \frac{n_{max} + 1}{n_{max}}  \right) n}
           \left( x_0 - x_f \right) + x_f
 \end{equation}
+
+So let's say in words what we have shown here.  Placing an upper limit on the
+number of points a normal distribution thinks it has observed will have the
+following effects.  As long as the number of observations is less than the
+limit, the normal distribution will behave perfectly ``normal'' and
+continually become more and more precise in its estimate of the mean.  As soon
+as the threshold is crossed though, it will subtly change its behavior and
+begin to follow the general trends of the input data maintaining an estimate
+of the current uncertainty.  It will exponentially forget older measurments
+with a decay constant given by equation \eqref{eq:decay}. Although derived for
+the univariate case, similar arguments can be made for the multivariate case.
  
 \end{document}
