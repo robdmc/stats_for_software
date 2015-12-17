@@ -52,7 +52,7 @@ matrix, and $k$ is the dimensionality of the vector space.
 The sum of $N$ normally distributed random variables is also normally
 distributed with parameters
 \begin{equation}
-    \label{eq:sum_normal_mu_var}
+    \label{eq:sumnormalmuvar}
     \B\mu = \sum\limits_{i=1}^{N}\B\mu_i
     \qquad\text{and}\qquad
     \B{\Sigma} = \sum\limits_{i=1}^{N}\B{\Sigma_i}
@@ -63,7 +63,7 @@ distributed with parameters
 The product of $N$ normal distributions is also a normal distribution with
 parameters
 \begin{equation}
-    \label{eq:sum_normal_mu_var}
+    \label{eq:sumnormalmuvar}
     \B{\Lambda} = \sum\limits_{i=1}^{N}\B{\Lambda_i}
     %\B\mu = \frac{
     %    \sum\limits_{i=1}^{N}\B{\Lambda_i\mu_i}
@@ -88,7 +88,7 @@ following recursive update equations can be used to incrementally update these
 initial values to reflect all the values observed thus far.
 
 \begin{align}
-    \label{eq:normal_update_1d}
+    \label{eq:normalupdate1d}
     \mu_{n+1} &= \frac{n}{n + 1} \mu_n  + \frac{1}{n+1}x_{n+1} \\
     \sigma_{n+1}^2 &= \frac{n}{n + 1}\sigma_n^2
         + \frac{n}{(n+1)^2} \left( x_{n+1} - \mu_n \right) ^ 2\nonumber
@@ -97,7 +97,7 @@ initial values to reflect all the values observed thus far.
 The following equavalent formulation is sometimes easier to think
 about and will lead us towards handling the multivariate case.
 \begin{align}
-    \label{eq:normal_update_1d_with_gain}
+    \label{eq:normalupdate1dwithgain}
     K &\equiv \frac{1}{n + 1}\\
     \mu_{n+1} &= \mu_n  + K \left( x_{n+1} - \mu_n \right)\nonumber\\
     {\sigma'}_n^2 &= \sigma_n^2 + K \left( x_{n+1} - \mu_n  \right)^2\nonumber\\
@@ -105,12 +105,12 @@ about and will lead us towards handling the multivariate case.
 \end{align}
 
 
-The equations in \eqref{eq:normal_update_1d_with_gain} can be generalized to
+The equations in \eqref{eq:normalupdate1dwithgain} can be generalized to
 obtain the updated multivariate mean, $\B{\mu}_{n+1}$ and covariance,
 $\B{\Sigma}_{n+1}$.
 
 \begin{align}
-    \label{eq:normal_update_multi}
+    \label{eq:normalupdatemulti}
     K &\equiv \frac{1}{n + 1}\\
     \B{\mu}_{n+1} &= \B{\mu}_{n} +
                           K \left(
@@ -128,8 +128,8 @@ In this section, I describe one way of incrementally incorporating data into a
 normal distribution while discounting older data.  This is very similar to what
 a Kalman filter does, only quite a bit more simple.
 
-The update equations \eqref{eq:normal_update_1d_with_gain}
-\eqref{eq:normal_update_multi} in the previous section contain the ``gain''
+The update equations \eqref{eq:normalupdate1dwithgain}
+\eqref{eq:normalupdatemulti} in the previous section contain the ``gain''
 factor, $K$, which depends on how many data points the distribution has already
 ingested.  The gain factor is essentially a weighting factor indicating the
 relative importance of the current data point with respect to all previously
@@ -139,11 +139,11 @@ some value of our choosing, $n_{max}$.  We then continually feed the
 distribution identical data points with some final value $x_f$ and watch how
 the mean value changes.  The gain factor, of course, will be constant at
 \begin{equation}
-    \label{eq:k_const}
+    \label{eq:kconst}
     K_{max} = \frac{1}{1 + n_{max}}.
 \end{equation}
 Then starting with the second line of
-\eqref{eq:normal_update_1d_with_gain} we see
+\eqref{eq:normalupdate1dwithgain} we see
 \begin{align}
     \label{eq:interest}
     \mu_{n+1} &= \mu_n  + K_{max} \left( x_{n+1} - \mu_n \right)\nonumber\\
@@ -196,12 +196,12 @@ analysis problems, and it has a closed-form solution as long as $A < 1$.
 \end{equation}
 We use this result to obtain the final result for our amortization problem.
 \begin{align}
-    \label{eq:amortize_results}
+    \label{eq:amortizeresults}
     x_n &= A^n x_0 + \frac{B}{1 - A} - \frac{B A ^ n}{1 - A} \nonumber\\
         &= A^n \left( x_0 - \frac{B}{1 - A} \right) + \frac{B}{1 - A}
 \end{align}
 
-Notice that \eqref{eq:amortize_results} is exponential in $n$.  This means
+Notice that \eqref{eq:amortizeresults} is exponential in $n$.  This means
 that the value will start at $x_0$ and exponentially approach the final value
 $B / (1-A)$.  It is often more convenient to think about exponential processes
 in terms of their expontential ``decay constant'' which with will label as
@@ -212,9 +212,9 @@ $n_d$ and compute with the following steps.
     ln(A) &= -\frac{1}{n_d} \nonumber\\
     n_d &= -\frac{1}{ln(A)}
 \end{align}
-This means that equation \eqref{eq:amortize_results} can also be expressed as
+This means that equation \eqref{eq:amortizeresults} can also be expressed as
 \begin{equation}
-    \label{eq:amortize_results_exp}
+    \label{eq:amortizeresultsexp}
     x_n = e^{-n/n_d}
           \left( x_0 - \frac{B}{1 - A} \right) + \frac{B}{1 - A}
 \end{equation}
@@ -237,7 +237,7 @@ I won't go through all the steps here, but applying the amortization results
 to these equations will give you the following result.
 
 \begin{equation}
-    \label{eq:exp_solution}
+    \label{eq:expsolution}
     \mu_n = e^{-ln \left( \frac{n_{max} + 1}{n_{max}}  \right) n}
           \left( x_0 - x_f \right) + x_f
 \end{equation}
@@ -253,4 +253,132 @@ of the current uncertainty.  It will exponentially forget older measurments
 with a decay constant given by equation \eqref{eq:decay}. Although derived for
 the univariate case, similar arguments can be made for the multivariate case.
  
+%=============================================================================
+\section{Condioning and Marginalizing}
+One of the most common problems in statistics is to determine causation.
+Basically people want to be able to answer the question ``If I change this
+variable, how likely is it that this other variable will change, and by how
+much?''.  In general, causation is hard to prove, but one ingredient for
+causation is correlation.  If movement in one variable induces movement in
+another, then they will be correlated.  The mulitvariate distribution provides
+some nice tools for analyzing these correlations.
+
+Recall that the multivariate normal distribution has a density function given
+by
+\begin{equation}
+    f\left(\B{x}| \B{\mu}, \B{\Sigma} \right)
+    = \frac{1}{
+            |\B{\Sigma}|^\frac{1}{2} (2\pi)^{\left(\frac{k}{2}\right)}
+        }
+        e^{
+            -\frac{1}{2}
+            (\B{x} - \B{\mu})^T
+            \B{\Sigma}^{-1}
+            (\B{x} - \B{\mu})
+    }
+\end{equation}
+Evaluation this function at a particular value for $\B{x}$ will tell you how
+likely you are to observe a set of variables with values near $\B{x}$. But you
+can then ask the question, ``If I know the value of the first element of
+$\B{x}$, how does that change the distriubtion for all the rest of the values
+in $\B{x}$?  This is called conditioning.
+
+We will study conditioning by partioning the elements of $\B{x}$ into two
+sets, the unkown set $\B{x_1}$ and the known set $\B{x_2}$.  What this means
+is that we know the values for $\B{x_2}$ and want the updated probability
+distribution for the unkown set $\B{x_1}$. Let's see how this works.  First I
+carry out my partitioning
+\begin{equation}
+    \label{eq:xpartition}
+    \B{x} = 
+    \begin{bmatrix}
+        \B{x_1} \\
+        \B{x_2}
+    \end{bmatrix}
+\end{equation}
+This then leads to corresponding partitions for the mean vector
+\begin{equation}
+    \label{eq:meanpartition}
+    \B{\mu} = 
+    \begin{bmatrix}
+        \B{\mu_1} \\
+        \B{\mu_2}
+    \end{bmatrix}
+\end{equation}
+and covariance matrix
+\begin{equation}
+    \label{eq:meanpartition}
+    \B{\Sigma} = 
+    \begin{bmatrix}
+        \B{\Sigma_{11}} & \B{\Sigma_{12}} \\ 
+        \B{\Sigma_{21}} & \B{\Sigma_{22}} \\
+    \end{bmatrix}
+\end{equation}
+Ignoring the normalization constant, this means I can rewrite the density
+function as
+\begin{equation}
+    f\left(\B{x_1}, \B{x_2} \right)
+     = e^{
+        -\frac{1}{2}
+        \begin{bmatrix}
+            \B{x_1} - \B{\mu_1} \\
+            \B{x_2} - \B{\mu_2}
+        \end{bmatrix}^T
+        \begin{bmatrix}
+            \B{\Sigma_{11}} & \B{\Sigma_{12}} \\ 
+            \B{\Sigma_{21}} & \B{\Sigma_{22}} \\
+        \end{bmatrix}^{-1}
+        \begin{bmatrix}
+            \B{x_1} - \B{\mu_1} \\
+            \B{x_2} - \B{\mu_2}
+        \end{bmatrix}
+     }.
+\end{equation}
+But what I really want to know is the conditional distrubtion
+\begin{equation}
+    f\left(\B{x_1}| \B{x_2}=\B{a} \right).
+\end{equation}
+The algebra required to get this result is super tedious and involves
+something called the Schur complement, so I'm just going to state the result.
+The conditional distriubtion is just another multivariate normal, 
+\begin{equation}
+    f\left(\B{x_1}| \B{x_2}=\B{a} \right) = 
+        \frac{1}{
+                    |\B{\bar\Sigma}|^\frac{1}{2} (2\pi)^{\left(\frac{k}{2}\right)}
+                }
+                e^{
+                    -\frac{1}{2}
+                    (\B{x_1} - \B{\bar\mu})^T
+                    \B{\bar\Sigma}^{-1}
+                    (\B{x_1} - \B{\bar\mu})
+            }
+\end{equation}
+where
+\begin{equation}
+    \B{\bar{\mu}} = \B{\mu_1} + \B{\Sigma_{12}\Sigma_{22}^{-1}}
+    \left( \B{a} - \B{\mu_2} \right)
+\end{equation}
+and
+\begin{equation}
+    \B{\bar{\Sigma}} =
+        \B{\Sigma_{11}} - \B{\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
