@@ -292,8 +292,8 @@ carry out my partitioning
     \label{eq:xpartition}
     \B{x} = 
     \begin{bmatrix}
-        \B{x_1} \\
-        \B{x_2}
+        \B{x}_1 \\
+        \B{x}_2
     \end{bmatrix}
 \end{equation}
 This then leads to corresponding partitions for the mean vector
@@ -301,8 +301,8 @@ This then leads to corresponding partitions for the mean vector
     \label{eq:meanpartition}
     \B{\mu} = 
     \begin{bmatrix}
-        \B{\mu_1} \\
-        \B{\mu_2}
+        \B{\mu}_1 \\
+        \B{\mu}_2
     \end{bmatrix}
 \end{equation}
 and covariance matrix
@@ -310,8 +310,8 @@ and covariance matrix
     \label{eq:meanpartition}
     \B{\Sigma} = 
     \begin{bmatrix}
-        \B{\Sigma_{11}} & \B{\Sigma_{12}} \\ 
-        \B{\Sigma_{21}} & \B{\Sigma_{22}} \\
+        \B{\Sigma}_{11} & \B{\Sigma}_{12} \\ 
+        \B{\Sigma}_{21} & \B{\Sigma}_{22} \\
     \end{bmatrix}
 \end{equation}
 Ignoring the normalization constant, this means I can rewrite the density
@@ -321,28 +321,28 @@ function as
      = e^{
         -\frac{1}{2}
         \begin{bmatrix}
-            \B{x_1} - \B{\mu_1} \\
-            \B{x_2} - \B{\mu_2}
+            \B{x}_1 - \B{\mu}_1 \\
+            \B{x}_2 - \B{\mu}_2
         \end{bmatrix}^T
         \begin{bmatrix}
-            \B{\Sigma_{11}} & \B{\Sigma_{12}} \\ 
-            \B{\Sigma_{21}} & \B{\Sigma_{22}} \\
+            \B{\Sigma}_{11} & \B{\Sigma}_{12} \\ 
+            \B{\Sigma}_{21} & \B{\Sigma}_{22} \\
         \end{bmatrix}^{-1}
         \begin{bmatrix}
-            \B{x_1} - \B{\mu_1} \\
-            \B{x_2} - \B{\mu_2}
+            \B{x}_1 - \B{\mu}_1 \\
+            \B{x}_2 - \B{\mu}_2
         \end{bmatrix}
      }.
 \end{equation}
 But what I really want to know is the conditional distrubtion
 \begin{equation}
-    f\left(\B{x_1}| \B{x_2}=\B{a} \right).
+    f\left(\B{x}_1| \B{x}_2=\B{a} \right).
 \end{equation}
 The algebra required to get this result is super tedious and involves
 something called the Schur complement, so I'm just going to state the result.
 The conditional distriubtion is just another multivariate normal, 
 \begin{equation}
-    f\left(\B{x_1}| \B{x_2}=\B{a} \right) = 
+    f\left(\B{x}_1| \B{x}_2=\B{a} \right) = 
         \frac{1}{
                     |\B{\bar\Sigma}|^\frac{1}{2} (2\pi)^{\left(\frac{k}{2}\right)}
                 }
@@ -355,13 +355,13 @@ The conditional distriubtion is just another multivariate normal,
 \end{equation}
 where
 \begin{equation}
-    \B{\bar{\mu}} = \B{\mu_1} + \B{\Sigma_{12}\Sigma_{22}^{-1}}
-    \left( \B{a} - \B{\mu_2} \right)
+    \B{\bar{\mu}} = \B{\mu}_1 + \B{\Sigma}_{12}\B{\Sigma}_{22}^{-1}
+    \left( \B{a} - \B{\mu}_2 \right)
 \end{equation}
 and
 \begin{equation}
     \B{\bar{\Sigma}} =
-        \B{\Sigma_{11}} - \B{\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}}
+    \B{\Sigma}_{11} - \B{\Sigma}_{12}\B{\Sigma}_{22}^{-1}\B{\Sigma}_{21}
 \end{equation}
 
 
