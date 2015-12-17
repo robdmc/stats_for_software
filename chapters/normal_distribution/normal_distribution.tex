@@ -80,7 +80,7 @@ matrix.
 %=============================================================================
 \section{Incrementally Incorporating Data Into Distribution}
 This section builds on a white paper by Raul Rojas entitled ``The Kalman
-Filter.''  We'll start by considering the univariate normal distrubtion
+Filter.''  We'll start by considering the univariate normal distribution
 and then generalize to the multivariate case. 
 
 Assume you start with some initial values for $\mu_0$ and $\sigma_0$.  The
@@ -94,7 +94,7 @@ initial values to reflect all the values observed thus far.
         + \frac{n}{(n+1)^2} \left( x_{n+1} - \mu_n \right) ^ 2\nonumber
 \end{align}
 
-The following equavalent formulation is sometimes easier to think
+The following equivalent formulation is sometimes easier to think
 about and will lead us towards handling the multivariate case.
 \begin{align}
     \label{eq:normalupdate1dwithgain}
@@ -157,15 +157,15 @@ anyone who has examined the amortization problem for compounded interest.
     \mu_{n+1} = A \mu_n + B.
 \end{equation}
 To see the correspondence, imagine that $n$ indexes the number of months you
-are into your mortage, $\mu_n$ represents the outstanding balance on your
-mortage, $A$ represents your monthly interest rate, and $B$ represents your
+are into your mortgage, $\mu_n$ represents the outstanding balance on your
+mortgage, $A$ represents your monthly interest rate, and $B$ represents your
 monthly payment (with a negative sign). 
 
 %-----------------------------------------------------------------------------
 \subsection{Exploring the Amortization Update Equation}
 The amortization equation can apply to any system.  Above we will apply it to
 the evolution of mean values, but it could apply to anything.  We therefore
-reexpress the equation in terms of some general variable $x$.
+re express the equation in terms of some general variable $x$.
 
 \begin{equation}
     \label{eq:amortize}
@@ -187,7 +187,7 @@ $x_0$, and then step through the first few iterations of equation
         A^n x_0 +
         B\sum\limits_{i=0}^{n-1}A^i
 \end{align}
-The summation in \eqref{eq:steps} occures quite frequently in different
+The summation in \eqref{eq:steps} occurs quite frequently in different
 analysis problems, and it has a closed-form solution as long as $A < 1$.
 
 \begin{equation}
@@ -204,7 +204,7 @@ We use this result to obtain the final result for our amortization problem.
 Notice that \eqref{eq:amortizeresults} is exponential in $n$.  This means
 that the value will start at $x_0$ and exponentially approach the final value
 $B / (1-A)$.  It is often more convenient to think about exponential processes
-in terms of their expontential ``decay constant'' which with will label as
+in terms of their exponential ``decay constant'' which with will label as
 $n_d$ and compute with the following steps.
 \begin{align}
     \label{eq:decay}
@@ -249,7 +249,7 @@ limit, the normal distribution will behave perfectly ``normal'' and
 continually become more and more precise in its estimate of the mean.  As soon
 as the threshold is crossed though, it will subtly change its behavior and
 begin to follow the general trends of the input data maintaining an estimate
-of the current uncertainty.  It will exponentially forget older measurments
+of the current uncertainty.  It will exponentially forget older measurements
 with a decay constant given by equation \eqref{eq:decay}. Although derived for
 the univariate case, similar arguments can be made for the multivariate case.
  
@@ -260,7 +260,7 @@ Basically people want to be able to answer the question ``If I change this
 variable, how likely is it that this other variable will change, and by how
 much?''.  In general, causation is hard to prove, but one ingredient for
 causation is correlation.  If movement in one variable induces movement in
-another, then they will be correlated.  The mulitvariate distribution provides
+another, then they will be correlated.  The multivariate distribution provides
 some nice tools for analyzing these correlations.
 
 Recall that the multivariate normal distribution has a density function given
@@ -280,13 +280,13 @@ by
 Evaluation this function at a particular value for $\B{x}$ will tell you how
 likely you are to observe a set of variables with values near $\B{x}$. But you
 can then ask the question, ``If I know the value of the first element of
-$\B{x}$, how does that change the distriubtion for all the rest of the values
+$\B{x}$, how does that change the distribution for all the rest of the values
 in $\B{x}$?  This is called conditioning.
 
-We will study conditioning by partioning the elements of $\B{x}$ into two
-sets, the unkown set $\B{x_1}$ and the known set $\B{x_2}$.  What this means
+We will study conditioning by partitioning the elements of $\B{x}$ into two
+sets, the unknown set $\B{x_1}$ and the known set $\B{x_2}$.  What this means
 is that we know the values for $\B{x_2}$ and want the updated probability
-distribution for the unkown set $\B{x_1}$. Let's see how this works.  First I
+distribution for the unknown set $\B{x_1}$. Let's see how this works.  First I
 carry out my partitioning
 \begin{equation}
     \label{eq:xpartition}
@@ -334,13 +334,13 @@ function as
         \end{bmatrix}
      }.
 \end{equation}
-But what I really want to know is the conditional distrubtion
+But what I really want to know is the conditional distribution
 \begin{equation}
     \mathcal{P}\left(\B{x}_1| \B{x}_2=\B{a} \right).
 \end{equation}
 The algebra required to get this result is super tedious and involves
 something called the Schur complement, so I'm just going to state the result.
-The conditional distriubtion is just another multivariate normal, 
+The conditional distribution is just another multivariate normal, 
 \begin{equation}
     \mathcal{P}\left(\B{x}_1| \B{x}_2=\B{a} \right) = 
     \mathcal{N}\left(\B{x}_1| \bar{\B{\mu}}, \bar{\B{\Sigma}} \right) = 
@@ -367,7 +367,7 @@ and
 %=============================================================================
 \section{Marginalizing}
 Compared to conditioning, marginalizing is pretty simple.  Let's go back to
-the partitioned multivarite normal we used above.
+the partitioned multivariate normal we used above.
 \begin{equation}
     \mathcal{P}\left(\B{x_1}, \B{x_2} \right)
      \sim e^{
