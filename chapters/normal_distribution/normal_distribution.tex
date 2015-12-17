@@ -150,11 +150,66 @@ anyone who has examined the amortization problem for compounded interest.
     \label{eq:interest}
     \mu_{n+1} = A \mu_n + B.
 \end{equation}
-We turn now to investigating the dynamics of this amortization-like equation
-which should give you the added bonus of helping you understand your mortgage
-payments.
-\subsection{Exploring the Amortization Update Equation}
-Here is some text about that.
+To see the correspondence, imagine that $n$ indexes the number of months you
+are into your mortage, $\mu_n$ represents the outstanding balance on your
+mortage, $A$ represents your monthly interest rate, and $B$ represents your
+monthly payment (with a negative sign). 
 
+\subsection{Exploring the Amortization Update Equation}
+The amortization equation can apply to any system.  Above we will apply it to
+the evolution of mean values, but it could apply to anything.  We therefore
+reexpress the equation in terms of some general variable $x$.
+
+\begin{equation}
+    \label{eq:amortize}
+    x_{n+1} = A x_n + B.
+\end{equation}
+
+Let's assume we start off with some initial value for $x$ that we will call
+$x_0$, and then step through the first few iterations of equation
+\eqref{eq:amortize}.
+
+\begin{align}
+    \label{eq:steps}
+    x_0 &= x_0\nonumber\\
+    x_1 &= A x_0 + B\nonumber\\
+    x_2 &= A^2 x_0 + AB + B\nonumber\\
+    x_3 &= A^3 x_0 + AB^2 + AB + B\nonumber\\
+    ...\nonumber\\
+    x_n &=
+        A^n x_0 +
+        B\sum\limits_{i=0}^{n-1}A^i
+\end{align}
+The summation in \eqref{eq:steps} occures quite frequently in different
+analysis problems, and it has a closed-form solution as long as $A < 1$.
+
+\begin{equation}
+    \label{eq:summation}
+    \sum\limits_{i=0}^{n-1}A^i = \frac{1 - A ^ N}{1 - A}
+\end{equation}
+We use this result to obtain the final result for our amortization problem.
+\begin{align}
+    \label{eq:amortize_results}
+    x_n &= A^n x_0 + \frac{B}{1 - A} - \frac{B A ^ n}{1 - A} \nonumber\\
+        &= A^n \left( x_0 - \frac{B}{1 - A} \right) + \frac{B}{1 - A}
+\end{align}
+
+Notice that \eqref{eq:amortize_results} is exponential in $n$.  This means
+that the value will start at $x_0$ and exponentially approach the final value
+$B / (1-A)$.  It is often more convenient to think about exponential processes
+in terms of their expontential ``decay constant'' which with will label as
+$n_d$ and compute with the following steps.
+\begin{align}
+    \label{eq:decay}
+    A^n &= e^\frac{-n}{n_d} \nonumber\\
+    ln(A) &= -\frac{1}{n_d} \nonumber\\
+    n_d &= -\frac{1}{ln(A)}
+\end{align}
+This means that equation \eqref{eq:amortize_results} can also be expressed as
+\begin{equation}
+    \label{eq:amortize_results_exp}
+    x_n = e^{-n/n_d}
+          \left( x_0 - \frac{B}{1 - A} \right) + \frac{B}{1 - A}
+\end{equation}
  
 \end{document}
