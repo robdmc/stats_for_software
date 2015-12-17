@@ -249,6 +249,19 @@ begin to follow the general trends of the input data maintaining an estimate
 of the current uncertainty.  It will exponentially forget older measurements
 with a decay constant given by equation \eqref{eq:decay}. Although derived for
 the univariate case, similar arguments can be made for the multivariate case.
+
+One other point of interest involves the decay constant which is given by
+\begin{equation}
+    n_d = \frac{1}{\ln \left( \frac{n_{max} + 1}{n_{max}}  \right)}.
+\end{equation}
+This can be inverted to get
+\begin{equation}
+    \label{eq:nmax}
+    n_{max} = \frac{1}{e^{1 / n_d} - 1}.
+\end{equation}
+This means that if you want your response to have a decay constant of $n_d$
+observations, you should set $n_{max}$ according to \eqref{eq:nmax}.
+
  
 %=============================================================================
 \section{Conditioning}
