@@ -16,7 +16,7 @@ The univariate cumulative density function is
 \begin{equation}
     \label{eq:uninormalcum}
     F\left(x| \mu, \sigma \right) =
-    \frac{1}{2}\left[ 1 + erf\left(\frac{x - \mu}{\sigma \sqrt{2}}  \right) \right]
+    \frac{1}{2}\left[ 1 + \operatorname{erf}\left(\frac{x - \mu}{\sigma \sqrt{2}}  \right) \right]
 \end{equation}
 The multivariate probability density function is given below.  In these
 equations, bold-face type indicates either a column vector (lower-case) or a
@@ -53,9 +53,9 @@ The sum of $N$ normally distributed random variables is also normally
 distributed with parameters
 \begin{equation}
     \label{eq:sumnormalmuvar}
-    \B\mu = \sum\limits_{i=1}^{N}\B\mu_i
+    \B\mu = \sum\limits_{i=1}^{N}\B{\mu}_i
     \qquad\text{and}\qquad
-    \B{\Sigma} = \sum\limits_{i=1}^{N}\B{\Sigma_i}
+    \B{\Sigma} = \sum\limits_{i=1}^{N}\B{\Sigma}_i
 \end{equation}
 
 %=============================================================================
@@ -64,21 +64,16 @@ The product of $N$ normal distributions is also a normal distribution with
 parameters
 \begin{equation}
     \label{eq:sumnormalmuvar}
-    \B{\Lambda} = \sum\limits_{i=1}^{N}\B{\Lambda_i}
-    %\B\mu = \frac{
-    %    \sum\limits_{i=1}^{N}\B{\Lambda_i\mu_i}
-    %}{
-    %    \sum\limits_{i=1}^{N}\B{\Lambda_i}
-    %}
+    \B{\Lambda} = \sum\limits_{i=1}^{N}\B{\Lambda}_i
     \qquad\text{and}\qquad
-    \B{\mu} = \B{\Lambda}^{-1}\sum\limits_{i=1}^{N}\B{\Lambda_i\mu_i}
+    \B{\mu} = \B{\Lambda}^{-1}\sum\limits_{i=1}^{N}\B{\Lambda}_i\B{\mu}_i
 \end{equation}
 Where $\B{\Lambda} = \B{\Sigma^{-1}}$ is the precision
 matrix.
 
 
 %=============================================================================
-\section{Incrementally Incorporating Data Into Distribution}
+\section{Incrementally Incorporating Data Into Distributions}
 This section builds on a white paper by Raul Rojas entitled ``The Kalman
 Filter.''  We'll start by considering the univariate normal distribution
 and then generalize to the multivariate case. 
@@ -124,9 +119,9 @@ $\B{\Sigma}_{n+1}$.
 
 %=============================================================================
 \section{Incremental Updates with ``Forgetting''}
-In this section, I describe one way of incrementally incorporating data into a
-normal distribution while discounting older data.  This is very similar to what
-a Kalman filter does, only quite a bit more simple.
+In this section, I describe a method for incrementally incorporating data into
+a normal distribution while discounting older data.  This is very similar to
+what a Kalman filter does, only quite a bit more simple.
 
 The update equations \eqref{eq:normalupdate1dwithgain}
 \eqref{eq:normalupdatemulti} in the previous section contain the ``gain''
@@ -163,9 +158,11 @@ monthly payment (with a negative sign).
 
 %-----------------------------------------------------------------------------
 \subsection{Exploring the Amortization Update Equation}
-The amortization equation can apply to any system.  Above we will apply it to
-the evolution of mean values, but it could apply to anything.  We therefore
-re express the equation in terms of some general variable $x$.
+The amortization equation can apply to many situations.  Although we are
+specifically interested in applying it to the ``forgetting'' problem, we could
+apply it to a variety of problems. We therefore reexpress the equation in
+terms of some general variable $x$ with the understanding that we can apply it
+to our specific case of $\mu$ whenever we want.
 
 \begin{equation}
     \label{eq:amortize}
@@ -188,11 +185,11 @@ $x_0$, and then step through the first few iterations of equation
         B\sum\limits_{i=0}^{n-1}A^i
 \end{align}
 The summation in \eqref{eq:steps} occurs quite frequently in different
-analysis problems, and it has a closed-form solution as long as $A < 1$.
+analysis problems, and it has a closed-form solution as long as $A < 1$:
 
 \begin{equation}
     \label{eq:summation}
-    \sum\limits_{i=0}^{n-1}A^i = \frac{1 - A ^ N}{1 - A}
+    \sum\limits_{i=0}^{n-1}A^i = \frac{1 - A ^ N}{1 - A}.
 \end{equation}
 We use this result to obtain the final result for our amortization problem.
 \begin{align}
@@ -204,7 +201,7 @@ We use this result to obtain the final result for our amortization problem.
 Notice that \eqref{eq:amortizeresults} is exponential in $n$.  This means
 that the value will start at $x_0$ and exponentially approach the final value
 $B / (1-A)$.  It is often more convenient to think about exponential processes
-in terms of their exponential ``decay constant'' which with will label as
+in terms of their exponential ``decay constant'' which we will label as
 $n_d$ and compute with the following steps.
 \begin{align}
     \label{eq:decay}
@@ -258,7 +255,7 @@ the univariate case, similar arguments can be made for the multivariate case.
 One of the most common problems in statistics is to determine causation.
 Basically people want to be able to answer the question ``If I change this
 variable, how likely is it that this other variable will change, and by how
-much?''.  In general, causation is hard to prove, but one ingredient for
+much?''  In general, causation is hard to prove, but one ingredient for
 causation is correlation.  If movement in one variable induces movement in
 another, then they will be correlated.  The multivariate distribution provides
 some nice tools for analyzing these correlations.
@@ -314,8 +311,8 @@ and covariance matrix
         \B{\Sigma}_{21} & \B{\Sigma}_{22} \\
     \end{bmatrix}
 \end{equation}
-Ignoring the normalization constant, this means I can rewrite the density
-function as
+Ignoring the normalization constant, this means I can rewrite the probability
+density function as
 \begin{equation}
     \mathcal{P}\left(\B{x_1}, \B{x_2} \right)
      \sim e^{
