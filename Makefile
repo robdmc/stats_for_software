@@ -51,6 +51,10 @@ beta_distribution.pdf: ./chapters/beta_distribution/beta_distribution.tex
 	#open $@
 beta_distribution: beta_distribution.pdf
 
+gamma_distribution.pdf: ./chapters/gamma_distribution/gamma_distribution.tex 
+	(cd ./chapters/gamma_distribution && pdflatex gamma_distribution.tex && mv gamma_distribution.pdf ../..)
+	#open $@
+gamma_distribution: gamma_distribution.pdf
 
 
 
