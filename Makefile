@@ -4,6 +4,7 @@ SHELL:=/bin/bash
 
 LOG_FILES:=$(wildcard *.log) $(wildcard ./chapters/*/*.log)
 AUX_FILES:=$(wildcard *.aux) $(wildcard ./chapters/*/*.aux)
+AUX_FILES:=$(wildcard *.toc) $(wildcard ./chapters/*/*.toc)
 TEX_FILES:=$(wildcard *.tex) $(wildcard ./chapters/*/*.tex)
 PDF_FILES:=$(wildcard ./chapters/*/*.pdf)
 
