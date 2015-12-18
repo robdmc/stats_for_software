@@ -1,0 +1,37 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Gamma Distributions}
+
+%=============================================================================
+\section{Density Functions}
+The probability density function has two equivalent parameterizations
+\begin{align}
+    f\left(x| k, \theta \right) &=
+    \frac{1}{\Gamma(k)\theta^k} x^{k - 1} e^{-x / \theta} \\
+    f\left(x| \alpha, \beta \right) &=
+    \frac{\beta^\alpha}{\Gamma(\alpha)} x ^ {\alpha - 1} e^{-\beta x} \\
+\end{align}
+The mean and standard deviations for the two parameterizations are
+
+\begin{align}
+    \mu &= k \theta = \frac{\alpha}{\beta}\\
+    \sigma &= \sqrt{k} \theta = \frac{\sqrt{\alpha}}{\beta}
+\end{align}
+
+For a given $\mu$ and $\sigma$, the parameters are
+\begin{equation}
+    k = \left( \frac{\mu}{\sigma} \right)^2
+    \qquad\qquad
+    \theta = \frac{\sigma^2}{\mu}
+\end{equation}
+and
+\begin{equation}
+    \alpha = \left( \frac{\mu}{\sigma} \right)^2
+    \qquad\qquad
+    \beta = \frac{\mu}{\sigma^2}
+\end{equation}
+
+
+\end{document}
