@@ -19,27 +19,6 @@ introduction.pdf: ./chapters/introduction/introduction.tex
 	(cd ./chapters/introduction && pdflatex introduction.tex && mv introduction.pdf ../..)
 	#open $@
 introduction: introduction.pdf
-#
-#calculus.pdf: ./chapters/calculus/calculus.tex 
-#	(cd ./chapters/calculus && pdflatex calculus.tex && mv calculus.pdf ../..)
-#	#open $@
-#calculus: calculus.pdf
-#
-#distributions.pdf: ./chapters/distributions/distributions.tex 
-#	(cd ./chapters/distributions && pdflatex distributions.tex && mv distributions.pdf ../..)
-#	#open $@
-#distributions: distributions.pdf
-#
-#entropy.pdf: ./chapters/entropy/entropy.tex 
-#	(cd ./chapters/entropy && pdflatex entropy.tex && mv entropy.pdf ../..)
-#	#open $@
-#entropy: entropy.pdf
-#
-#linear_algebra.pdf: ./chapters/linear_algebra/linear_algebra.tex 
-#	(cd ./chapters/linear_algebra && pdflatex linear_algebra.tex && mv linear_algebra.pdf ../..)
-#	#open $@
-#linear_algebra: linear_algebra.pdf
-
 
 normal_distribution.pdf: ./chapters/normal_distribution/normal_distribution.tex 
 	(cd ./chapters/normal_distribution && pdflatex normal_distribution.tex && mv normal_distribution.pdf ../..)
@@ -56,6 +35,10 @@ gamma_distribution.pdf: ./chapters/gamma_distribution/gamma_distribution.tex
 	#open $@
 gamma_distribution: gamma_distribution.pdf
 
+lognormal_distribution.pdf: ./chapters/lognormal_distribution/lognormal_distribution.tex 
+	(cd ./chapters/lognormal_distribution && pdflatex lognormal_distribution.tex && mv lognormal_distribution.pdf ../..)
+	#open $@
+lognormal_distribution: lognormal_distribution.pdf
 
 
 main.pdf : main.tex $(TEX_FILES)
