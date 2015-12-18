@@ -1,0 +1,80 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Log-Normal Distributions}
+
+%=============================================================================
+\section{Density Function}
+The log-normal density function is
+\begin{equation}
+    f(x | \mu, \sigma) = 
+    \frac{
+        1
+    }{
+        x \sigma \sqrt{2 \pi}
+    }
+    e^{
+        -\frac{
+            (\ln{x} - \mu)^2
+        }{
+            2 \sigma^2
+        }
+    }
+\end{equation}
+
+The first and second moments are given by
+\begin{align}
+    \label{eq:lognormmoments}
+    m &= \langle x \rangle = e^{\mu + \sigma^2 / 2} \\
+    s^2 &= \left\langle x^2 \right\rangle
+         = \left( e^{\sigma^2} - 1 \right) e^{2\mu + \sigma^2}
+         = \left( e^{\sigma^2} - 1 \right) m^2
+\end{align}
+
+The parameters expressed in terms of the moments are
+\begin{align}
+    \label{eq:paramslognorm}
+    \sigma^2 &= \ln{\left(
+            1 + \frac{
+              \left\langle x^2 \right\rangle }{
+              {\langle x \rangle}^2
+            }
+        \right)
+    } 
+    = \ln{\left(1 + \frac{ s^2 }{ m^2 } \right) }\nonumber\nonumber\\
+    \mu &= \ln{\langle x \rangle} - \frac{1}{2} \sigma^2
+        = \ln{m} - \frac{1}{2} \sigma^2
+\end{align}
+
+\section{Sum of Log-Normal Variables}
+Let's say I want to sum $N$ variables, each of which is taken from the same
+log-normal distribution  with first and second moments $m$ and $s^2$
+respectively.  I want know the distribution of that sum.  There
+is no exact closed-form solution to this problem, but I can construct a
+reasonable approximation as follows.  The first moment of the sum will just be
+the sum of the first moments, and the second moment of the sum will just be
+the sum of the second moments, or
+\begin{equation}
+    \label{eq:lognormsum}
+    M = N m
+    \qquad\qquad
+    S^2 = N s^2.
+\end{equation}
+I can then compute the parameters corresponding to these moments and assume
+that the final distribution will also have the form of a log-normal.  Note
+that this is not rigorously correct and is an approximation.  Nevertheless,
+continuing on, I can substitute equations \eqref{eq:lognormsum} into
+\eqref{eq:paramslognorm} to arrive at the log-normal parameters for the sum
+distribution
+\begin{align}
+    \sigma_s^2 &=
+    \ln{\left[
+    1 + \frac{1}{N} \left( e^{\sigma^2} - 1 \right) \right]} \nonumber\\
+    \mu_s &= \ln{\left( N e^\mu \right)} + \frac{1}{2}
+             \left(\sigma^2 - \sigma_s^2 \right).
+\end{align}
+
+
+
+\end{document}
