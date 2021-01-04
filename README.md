@@ -1,5 +1,9 @@
 Stats For Software
 ===
+
+A personal (and maybe correct?) set of notes.
+---
+
 This repo contains the tex for generating a paper that serves as a reference
 for building statistical software.  It is basically a collection of formulae
 from various sources pulled together into one document for easy access.
